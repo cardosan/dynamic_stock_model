@@ -121,8 +121,13 @@ class DynamicStockModel(object):
             else:
                 DimReport += str('Outflow by cohorts is not present.<br>')
             if self.lt is not None:
-                DimReport += str('Lifetime distribution is present with type ' +
-                                 str(self.lt['Type']) + ' and mean ' + str(self.lt['Mean']) + '.<br>')
+                if str(self.lt['Type']) in ['Normal','Fixed','Exponential']:
+                    DimReport += str('Lifetime distribution is present with type ' +
+                                 str(self.lt['Type']) + ' and mean ' + str(self.lt['Mean']) + '.<br>') 
+                                 
+                elif str(self.lt['Type']) in ['Gamma','Weibull']:
+                    DimReport += str('Lifetime distribution is present with type ' +
+                                 str(self.lt['Type']) + ', shape ' + str(self.lt['Shape']) + ' and scale ' + str(self.lt['Scale']) + '.<br>') 
             else:
                 DimReport += str('Lifetime distribution is not present.<br>')
             ExitFlag = 1 # Description of DSM was compiled successfully.
